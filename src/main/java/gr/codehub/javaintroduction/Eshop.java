@@ -9,7 +9,10 @@ import gr.codehub.javaintroduction.domain.Customer;
 import gr.codehub.javaintroduction.domain.Item;
 import gr.codehub.javaintroduction.domain.Order;
 import gr.codehub.javaintroduction.repository.CustomerRepository;
-import gr.codehub.javaintroduction.utility.CustomerUtility;
+import gr.codehub.javaintroduction.repository.ItemRepository;
+import gr.codehub.javaintroduction.repository.impl.CustomerRepositoryImpl;
+import gr.codehub.javaintroduction.repository.impl.ItemRepositoryImpl;
+import gr.codehub.javaintroduction.utility.GeneralUtility;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -24,15 +27,26 @@ public class Eshop {
 
     public static void main(String[] args) throws FileNotFoundException {
         
-         Customer customer = new Customer(10L, "D", "Ir", "21066666",
-                "email@ggg.gr");
+         
         
-         CustomerRepository customerRepository = new CustomerRepository();
+         CustomerRepository  customerRepository = new CustomerRepositoryImpl();
+        
+           for (String currentCustomer: GeneralUtility.customers){
+             String words[] = currentCustomer.split(",");
+             //long id, String firstName, String surname, String tel, String email
+             customerRepository.addCustomer( new Customer(
+                     Long.parseLong(words[0]), words[1],words[2], words[3], words[4]));
+          }
          
-         customerRepository.addCustomer(customer);
-         
-         customerRepository.addCustomer(customer);
-         
+          ItemRepository itemRepository = new  ItemRepositoryImpl();
+           
+            for (String currentItem: GeneralUtility.items){
+             String words[] = currentItem.split(",");
+             //long id, String name, BigDecimal price, Category category
+             itemRepository.addItem( new Item(
+                     Long.parseLong(words[0]), words[1], new BigDecimal(words[2]),   Category.valueOf(words[3]) ));
+          }
+           
          System.out.println(""+ customerRepository.readCustomer(10L));
          
       System.out.println("Number of customers= "+ customerRepository.readCustomer().size());

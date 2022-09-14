@@ -12,7 +12,22 @@ import java.util.regex.Pattern;
  *
  * @author iracl
  */
-public class CustomerUtility {
+public class GeneralUtility {
+    
+    //long id, String firstName, String surname, String tel, String email
+    
+  public static String[] customers = { 
+      "11L,Dimitris,Dimitriou,2107412345,dimitriou@codehub.gr",
+      "12L,Ertzan,Memet,2107411234,memet@codehub.gr",
+      "13L,Nikos,Nikolaou,210666665,nikolaou@codehub.gr"
+  };
+    //long id, String name, BigDecimal price, Category category
+    public static String[] items = {
+    "123,potatoes,1.30,GROCERY",
+    "124,milk,1.20,DIARY"    
+    };
+    
+    
       public static boolean isValidEmail(String email){
         String regex = "^(.+)@(.+)$";
         Pattern pattern = Pattern.compile(regex);
