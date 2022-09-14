@@ -17,9 +17,9 @@ public class GeneralUtility {
     //long id, String firstName, String surname, String tel, String email
     
   public static String[] customers = { 
-      "11L,Dimitris,Dimitriou,2107412345,dimitriou@codehub.gr",
-      "12L,Ertzan,Memet,2107411234,memet@codehub.gr",
-      "13L,Nikos,Nikolaou,210666665,nikolaou@codehub.gr"
+      "11,Dimitris,Dimitriou,2107412345,dimitriou@codehub.gr",
+      "12,Ertzan,Memet,2107411234,memet@codehub.gr",
+      "13,Nikos,Nikolaou,210666665,nikolaou@codehub.gr"
   };
     //long id, String name, BigDecimal price, Category category
     public static String[] items = {
@@ -41,7 +41,23 @@ public class GeneralUtility {
         
   //      if ("administrator".equals(customer.getFirstName())) return false;
         if (customer.getFirstName()!=null && customer.getFirstName().toLowerCase().equals("administrator")) return false;
+        if (! isValidEmail(customer.getEmail())) return false;
         if (customer.getEmail().contains("@gmail.com")) return false;
+        
         return true;
       }
+      
+      /**
+     * prints to sout the components of the Order string
+     * @param myOrderAsSting
+     */
+    public static void parseOrder(String myOrderAsSting) {
+        String[] words = myOrderAsSting.split(",");
+        System.out.println("The details of the order are:");
+        for (String word : words) {
+            System.out.println(word);
+        }
+    }
+      
+      
 }
