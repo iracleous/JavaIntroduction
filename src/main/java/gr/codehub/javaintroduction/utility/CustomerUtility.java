@@ -4,6 +4,7 @@
  */
 package gr.codehub.javaintroduction.utility;
 
+import gr.codehub.javaintroduction.domain.Customer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,4 +20,13 @@ public class CustomerUtility {
         return matcher.matches();
     }
     
+      
+      public static boolean isValidcustomer(Customer customer){
+        if (customer == null) return false;    
+        
+  //      if ("administrator".equals(customer.getFirstName())) return false;
+        if (customer.getFirstName()!=null && customer.getFirstName().toLowerCase().equals("administrator")) return false;
+        if (customer.getEmail().contains("@gmail.com")) return false;
+        return true;
+      }
 }

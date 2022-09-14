@@ -8,6 +8,7 @@ import gr.codehub.javaintroduction.domain.Category;
 import gr.codehub.javaintroduction.domain.Customer;
 import gr.codehub.javaintroduction.domain.Item;
 import gr.codehub.javaintroduction.domain.Order;
+import gr.codehub.javaintroduction.repository.CustomerRepository;
 import gr.codehub.javaintroduction.utility.CustomerUtility;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,27 +23,43 @@ import java.time.LocalDateTime;
 public class Eshop {
 
     public static void main(String[] args) throws FileNotFoundException {
-        Customer customer = new Customer(10L, "D", "Ir", "21066666",
+        
+         Customer customer = new Customer(10L, "D", "Ir", "21066666",
                 "email@ggg.gr");
-        Item item = new Item(100L, "potatoes", new BigDecimal("1.20"),
-                Category.GROCERY);
-        System.out.println(""
-                + CustomerUtility.isValidEmail(customer.getEmail()));
-        Order order = new Order(customer, item, 1, item.getPrice(),
-                new BigDecimal("0"), LocalDateTime.now());
         
-        String myOrderAsSting = order.toCsv();
-        String orderHeader = order.header();
-        System.out.println(orderHeader);
-        System.out.println(myOrderAsSting);
-        parseOrder(myOrderAsSting);
+         CustomerRepository customerRepository = new CustomerRepository();
+         
+         customerRepository.addCustomer(customer);
+         
+         customerRepository.addCustomer(customer);
+         
+         System.out.println(""+ customerRepository.readCustomer(10L));
+         
+      System.out.println("Number of customers= "+ customerRepository.readCustomer().size());
         
         
-        File file = new File("order.csv");
-        PrintWriter pw = new PrintWriter(file);
-        pw.println(orderHeader);
-        pw.println(myOrderAsSting);
-        pw.close();
+        
+//        Customer customer = new Customer(10L, "D", "Ir", "21066666",
+//                "email@ggg.gr");
+//        Item item = new Item(100L, "potatoes", new BigDecimal("1.20"),
+//                Category.GROCERY);
+//        System.out.println(""
+//                + CustomerUtility.isValidEmail(customer.getEmail()));
+//        Order order = new Order(customer, item, 1, item.getPrice(),
+//                new BigDecimal("0"), LocalDateTime.now());
+//        
+//        String myOrderAsSting = order.toCsv();
+//        String orderHeader = order.header();
+//        System.out.println(orderHeader);
+//        System.out.println(myOrderAsSting);
+//        parseOrder(myOrderAsSting);
+//        
+//        
+//        File file = new File("order.csv");
+//        PrintWriter pw = new PrintWriter(file);
+//        pw.println(orderHeader);
+//        pw.println(myOrderAsSting);
+//        pw.close();
         
     }
 
