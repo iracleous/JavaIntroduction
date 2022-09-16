@@ -9,10 +9,13 @@ import gr.codehub.javaintroduction.domain.Customer;
 import gr.codehub.javaintroduction.domain.Item;
 import gr.codehub.javaintroduction.domain.Order;
 import gr.codehub.javaintroduction.domain.OrderItem;
+import gr.codehub.javaintroduction.exception.CustomerException;
 import gr.codehub.javaintroduction.repository.CustomerRepository;
 import gr.codehub.javaintroduction.repository.ItemRepository;
+import gr.codehub.javaintroduction.repository.OrderRepository;
 import gr.codehub.javaintroduction.repository.impl.CustomerRepositoryImpl;
 import gr.codehub.javaintroduction.repository.impl.ItemRepositoryImpl;
+import gr.codehub.javaintroduction.repository.impl.OrderRepositoryImpl;
 import gr.codehub.javaintroduction.service.MarketService;
 import gr.codehub.javaintroduction.utility.GeneralUtility;
 import java.math.BigDecimal;
@@ -26,10 +29,12 @@ public class MarketServiceImpl implements MarketService{
 
     private final CustomerRepository customerRepository;
     private final ItemRepository itemRepository;
+    private final OrderRepository orderRepository;
     
     public MarketServiceImpl(){
         customerRepository = new CustomerRepositoryImpl();
         itemRepository = new ItemRepositoryImpl();
+        orderRepository = new OrderRepositoryImpl();
     }
     
     @Override
@@ -37,11 +42,15 @@ public class MarketServiceImpl implements MarketService{
        for (String currentCustomer: GeneralUtility.customers){
              String words[] = currentCustomer.split(",");
              //long id, String firstName, String surname, String tel, String email
-             
-             Customer customer = new Customer(
-                     Long.parseLong(words[0]), words[1],words[2], words[3], words[4]);
-             if (GeneralUtility.isValidcustomer(customer))
-                   customerRepository.addCustomer(customer );
+             try{
+                Customer customer = new Customer(
+                        Long.parseLong(words[0]), words[1],words[2], words[3], words[4]);
+                if (GeneralUtility.isValidcustomer(customer))
+                      customerRepository.addCustomer(customer );
+             }
+             catch(CustomerException customerException){
+                 System.out.println("The customer has not been added");
+             }
           }
     }
 
@@ -56,8 +65,10 @@ public class MarketServiceImpl implements MarketService{
     }
 
     @Override
-    public Order createOrder(long customerId, long[] itemIds) {
+    public Order createOrder(long orderId, long customerId, long[] itemIds) {
         Order order = new Order();
+        order.setId(orderId);
+        
         Customer customer = customerRepository.readCustomer(customerId);
         if (customer == null) return null;
         order.setCustomer(customer);
@@ -66,19 +77,60 @@ public class MarketServiceImpl implements MarketService{
         for (long itemId: itemIds){
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
-            orderItem.setItem(itemRepository.readItem(itemId));
-            orderItem.setItemPrice( itemRepository.readItem(itemId).getPrice());
+            Item item = itemRepository.readItem(itemId);
+            if (item == null) continue;
+            orderItem.setItem( item);
+            orderItem.setItemPrice( item.getPrice());
             orderItem.setDiscount(BigDecimal.ZERO);
             orderItem.setQuantity(1);
 
             order.getOrderItems().add(orderItem);
         }
+        
+        orderRepository.addOrder(order);
         return order;
     }
 
+      @Override
+    public void displayOrder(long orderId) {
+        Order order = orderRepository.readOrder(orderId);
+        System.out.println("Order No. " + order.getId());
+        System.out.println("Customer: " + order.getCustomer());
+        System.out.println("Items in the order");
+        int index = 0;
+        for (OrderItem item: order.getOrderItems()){
+            System.out.println(""+ (++index) +". "+ item);
+        }
+   }
+    
+    
+    
     @Override
     public void displayOrders(long customerId) {
-        System.out.println("Order for customer 11" + createOrder(11, new long[]{123,124}));
+        
    }
+
+  
+    
+    
+    @Override
+    public void displayItems() {
+        System.out.println("Available items");
+        for(Item item: itemRepository.readItem()){
+            System.out.println(""+item);
+        }
+        System.out.println("-------------------------------------------");
+        System.out.println("");
+    }
+
+    @Override
+    public void displayCustomers() {
+        System.out.println("Available customers");
+        for(Customer customer: customerRepository.readCustomer()){
+            System.out.println(""+customer);
+        }
+        System.out.println("-------------------------------------------");
+        System.out.println("");
+    }
     
 }

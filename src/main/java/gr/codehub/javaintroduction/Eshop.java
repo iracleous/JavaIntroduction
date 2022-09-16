@@ -4,34 +4,39 @@
  */
 package gr.codehub.javaintroduction;
 
-import gr.codehub.javaintroduction.domain.Category;
-import gr.codehub.javaintroduction.domain.Customer;
-import gr.codehub.javaintroduction.domain.Item;
+ 
 import gr.codehub.javaintroduction.domain.Order;
-import gr.codehub.javaintroduction.domain.OrderItem;
-import gr.codehub.javaintroduction.repository.CustomerRepository;
-import gr.codehub.javaintroduction.repository.ItemRepository;
-import gr.codehub.javaintroduction.repository.impl.CustomerRepositoryImpl;
-import gr.codehub.javaintroduction.repository.impl.ItemRepositoryImpl;
 import gr.codehub.javaintroduction.service.MarketService;
 import gr.codehub.javaintroduction.service.impl.MarketServiceImpl;
-import gr.codehub.javaintroduction.utility.GeneralUtility;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+ 
 /**
  *
  * @author iracl
  */
 public class Eshop {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args)   {
         MarketService market = new MarketServiceImpl();
         market.loadInitialCustomerData();
         market.loadInitialItemData();
-        market.displayOrders(11);
+        
+        market.displayItems();
+        market.displayCustomers();
+        
+        long customerId = 11;
+        long[] itemIds = new long[]{123, 127};
+        
+        Order order =  market.createOrder(23, customerId, itemIds);
+    
+        market.displayOrder(order.getId());
+        
+        
+        
+        
     }
 }

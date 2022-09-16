@@ -4,8 +4,9 @@
  */
 package gr.codehub.javaintroduction.domain;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import gr.codehub.javaintroduction.exception.CustomerException;
+import gr.codehub.javaintroduction.utility.GeneralUtility;
+
 
 /**
  *
@@ -18,7 +19,9 @@ public class Customer {
     private String tel;
     private String email;
 
-    public Customer(long id, String firstName, String surname, String tel, String email) {
+    public Customer(long id, String firstName, String surname, String tel, String email) throws CustomerException{
+        if (!GeneralUtility.isValidEmail(email))
+             throw new CustomerException("Invalid email");
         this.id = id;
         this.firstName = firstName;
         this.surname = surname;

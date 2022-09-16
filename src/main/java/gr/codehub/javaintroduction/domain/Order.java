@@ -13,6 +13,7 @@ import java.util.List;
  * @author iracl
  */
 public class Order {
+    private long id;
     private Customer customer;
     private LocalDateTime date;
     private final List<OrderItem> orderItems = new ArrayList<>();
@@ -20,13 +21,22 @@ public class Order {
     public Order() {
     }
 
-   public Order(Customer customer, LocalDateTime date) {
+   public Order(long id, Customer customer, LocalDateTime date) {
+        this.id = id;
         this.customer = customer;
         this.date = date;
     }
 
     public List<OrderItem> getOrderItems() {
         return orderItems;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
  
    

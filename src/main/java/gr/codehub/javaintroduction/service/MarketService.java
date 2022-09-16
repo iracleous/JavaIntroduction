@@ -13,6 +13,15 @@ import gr.codehub.javaintroduction.domain.Order;
 public interface MarketService {
     void loadInitialCustomerData();
     void loadInitialItemData();
-    Order createOrder(long customerId, long[] itemIds);
+    Order createOrder(long orderId, long customerId, long[] itemIds);
+    
     void displayOrders(long customerId);
+    void displayOrder(long orderId);
+    
+    void displayItems();
+    void displayCustomers();
+    
+     
+    
+    
 }
