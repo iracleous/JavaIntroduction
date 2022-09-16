@@ -5,6 +5,7 @@
 package gr.codehub.javaintroduction.service;
 
 import gr.codehub.javaintroduction.domain.Order;
+import gr.codehub.javaintroduction.dto.OrderList;
 
 /**
  *
@@ -15,13 +16,13 @@ public interface MarketService {
     void loadInitialItemData();
     Order createOrder(long orderId, long customerId, long[] itemIds);
     
-    void displayOrders(long customerId);
-    void displayOrder(long orderId);
+    String displayOrders(long customerId);
+    String displayOrder(long orderId);
     
-    void displayItems();
-    void displayCustomers();
+    String displayItems();
+    String displayCustomers();
     
-     
+    OrderList getOrders(); 
     
     
 }

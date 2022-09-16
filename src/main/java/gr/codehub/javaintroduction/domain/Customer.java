@@ -19,6 +19,15 @@ public class Customer {
     private String tel;
     private String email;
 
+    /**
+     *
+     * @param id
+     * @param firstName
+     * @param surname
+     * @param tel
+     * @param email
+     * @throws CustomerException
+     */
     public Customer(long id, String firstName, String surname, String tel, String email) throws CustomerException{
         if (!GeneralUtility.isValidEmail(email))
              throw new CustomerException("Invalid email");
@@ -36,6 +45,10 @@ public class Customer {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(long id) {
         this.id = id;
     }

@@ -8,11 +8,7 @@ package gr.codehub.javaintroduction;
 import gr.codehub.javaintroduction.domain.Order;
 import gr.codehub.javaintroduction.service.MarketService;
 import gr.codehub.javaintroduction.service.impl.MarketServiceImpl;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
  
 /**
  *
@@ -20,23 +16,27 @@ import java.util.logging.Logger;
  */
 public class Eshop {
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args)   {
+        //initialization
         MarketService market = new MarketServiceImpl();
         market.loadInitialCustomerData();
         market.loadInitialItemData();
+       
+        //display of options
+        System.out.println( market.displayItems());
+        System.out.println(market.displayCustomers());
         
-        market.displayItems();
-        market.displayCustomers();
-        
+        //define data transfer objects
         long customerId = 11;
         long[] itemIds = new long[]{123, 127};
+        long orderId = 23;
         
-        Order order =  market.createOrder(23, customerId, itemIds);
-    
-        market.displayOrder(order.getId());
-        
-        
-        
-        
+        //actions
+        market.createOrder(orderId, customerId, itemIds);
+        System.out.println(market.displayOrder(orderId)); 
     }
 }

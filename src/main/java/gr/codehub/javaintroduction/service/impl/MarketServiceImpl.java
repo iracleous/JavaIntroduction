@@ -9,6 +9,7 @@ import gr.codehub.javaintroduction.domain.Customer;
 import gr.codehub.javaintroduction.domain.Item;
 import gr.codehub.javaintroduction.domain.Order;
 import gr.codehub.javaintroduction.domain.OrderItem;
+import gr.codehub.javaintroduction.dto.OrderList;
 import gr.codehub.javaintroduction.exception.CustomerException;
 import gr.codehub.javaintroduction.repository.CustomerRepository;
 import gr.codehub.javaintroduction.repository.ItemRepository;
@@ -20,6 +21,8 @@ import gr.codehub.javaintroduction.service.MarketService;
 import gr.codehub.javaintroduction.utility.GeneralUtility;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -86,51 +89,75 @@ public class MarketServiceImpl implements MarketService{
 
             order.getOrderItems().add(orderItem);
         }
-        
         orderRepository.addOrder(order);
         return order;
     }
 
       @Override
-    public void displayOrder(long orderId) {
+    public String displayOrder(long orderId) {
         Order order = orderRepository.readOrder(orderId);
-        System.out.println("Order No. " + order.getId());
-        System.out.println("Customer: " + order.getCustomer());
-        System.out.println("Items in the order");
+        StringBuilder returnString = new StringBuilder();
+        returnString.append("Order No. ").append(order.getId()).append("\n") 
+            .append("Customer: ").append(order.getCustomer()).append("\n") 
+            .append("Items in the order").append("\n");
         int index = 0;
         for (OrderItem item: order.getOrderItems()){
-            System.out.println(""+ (++index) +". "+ item);
+            returnString.append("")
+                    .append(++index)
+                    .append(". ")
+                    .append(item)
+                    .append("\n");
         }
+        return returnString.toString();
    }
     
     
     
     @Override
-    public void displayOrders(long customerId) {
-        
+    public String displayOrders(long customerId) {
+        Customer customer = customerRepository.readCustomer(customerId);
+        StringBuilder returnValue= new StringBuilder();
+        returnValue.append(customer).append("\n");       
+        for (Order order: orderRepository.readOrder()){
+            if (order.getCustomer().getId() == customerId)
+                    returnValue.append(order).append("\n");
+        }
+        return returnValue.toString();
    }
 
   
     
     
     @Override
-    public void displayItems() {
-        System.out.println("Available items");
+    public String displayItems() {
+        StringBuilder returnValue= new StringBuilder();
+        returnValue.append("Available items");
         for(Item item: itemRepository.readItem()){
-            System.out.println(""+item);
+            returnValue.append( item);
         }
-        System.out.println("-------------------------------------------");
-        System.out.println("");
+        returnValue.append("-------------------------------------------\n");
+        return returnValue.toString();
     }
 
     @Override
-    public void displayCustomers() {
-        System.out.println("Available customers");
+    public String displayCustomers() {
+        StringBuilder returnValue= new StringBuilder();
+        returnValue.append("Available customers");
         for(Customer customer: customerRepository.readCustomer()){
-            System.out.println(""+customer);
+            returnValue.append(customer);
         }
-        System.out.println("-------------------------------------------");
-        System.out.println("");
+        returnValue.append("-------------------------------------------\n");
+        return returnValue.toString();
     }
     
+    
+    @Override
+    public OrderList getOrders(){
+        OrderList orderList = new OrderList();
+        List<Order> orders = new ArrayList<>();
+        orderList.setOrders(orders);
+        for(Order order: orderRepository.readOrder())
+            orders.add(order);
+        return orderList;
+    }
 }
