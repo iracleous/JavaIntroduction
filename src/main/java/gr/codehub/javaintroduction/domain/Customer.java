@@ -12,7 +12,7 @@ import gr.codehub.javaintroduction.utility.GeneralUtility;
  *
  * @author iracl
  */
-public class Customer {
+public class Customer implements Entity{
     private long id;
     private String firstName;
     private String surname;
@@ -96,5 +96,11 @@ public class Customer {
    public String toCsv() {
         return  id + "," + firstName + "," + surname + "," + tel + "," + email ;
     }
+
+	@Override
+	public boolean isValid() {
+		// TODO Auto-generated method stub
+		return GeneralUtility.isValidcustomer(this);
+	}
     
 }

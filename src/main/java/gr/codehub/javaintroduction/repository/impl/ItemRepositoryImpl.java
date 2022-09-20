@@ -15,61 +15,18 @@ import java.util.List;
  *
  * @author iracl
  */
-public class ItemRepositoryImpl implements ItemRepository{
+public class ItemRepositoryImpl extends RepositoryImpl<Item> implements ItemRepository{
+ 
     
-    private final List<Item> items;
 
     public ItemRepositoryImpl() {
-         items = new ArrayList<>();
+        super();
     }
     //CR2UD
 
       // add  remove get  update   CR2UD   create read update delete
 
-    /**
-     *
-     * @param item
-     * @return
-     */
-    
-    @Override
-    public boolean addItem (Item item){
-        for (int index = 0; index < items.size(); index++){
-            if (items.get(index).getId()== item.getId() )
-                return false;
-        }
-        items.add(item);
-        return true;
-    }
-    
-    /**
-     *
-     * @return
-     */
-    @Override
-    public List<Item> readItem(){
-        return items;
-    }
-    
-    /**
-     *
-     * @param id
-     * @return
-     */
-    @Override
-    public Item readItem(long id){
-//        for (int index = 0; index < items.size(); index ++){
-//            if (items.get(index).getId() == id)
-//                return items.get(index);
-//        }
-//        
-        for (Item item:items){
-            if (item.getId() == id){
-                   return item;
-            }
-        }
-        return null; 
-    }
+   
     
     /**
      *
@@ -79,25 +36,14 @@ public class ItemRepositoryImpl implements ItemRepository{
      */
     @Override
     public boolean updateItem(long itemId, BigDecimal newPrice){
-        Item item = readItem(itemId);
+        Item item = read(itemId);
         if( item == null) return false;
         
          item.setPrice(newPrice);
         return true;
     }
     
-    /**
-     *
-     * @param itemId
-     * @return
-     */
-    @Override
-    public boolean deleteItem(long itemId){
-        Item item = readItem(itemId);
-        if( item == null) return false;
-        items.remove(item);
-        return true;
-    }
+   
     
     
 }

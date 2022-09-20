@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  *
  * @author iracl
  */
-public class Item {
+public class Item implements Entity{
     private long id;
     private String name;
     private BigDecimal price;
@@ -70,5 +70,12 @@ public class Item {
    public String toCsv() {
         return  id + "," + name + "," + price + "," + category  ;
     }
+
+
+@Override
+public boolean isValid() {
+	// TODO Auto-generated method stub
+	return true;
+}
     
 }

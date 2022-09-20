@@ -12,10 +12,8 @@ import java.util.List;
  *
  * @author iracl
  */
-public interface ItemRepository {
-    boolean addItem(Item item);
-    List<Item> readItem();
-    Item readItem(long itemId);
+public interface ItemRepository extends Repository<Item>{
+ 
     boolean updateItem(long itemId, BigDecimal newPrice);
-    boolean deleteItem(long itemId);
+ 
 }

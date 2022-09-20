@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author iracl
  */
-public class Order {
+public class Order implements Entity{
     private long id;
     private Customer customer;
     private LocalDateTime date;
@@ -71,6 +71,12 @@ public class Order {
     public String toString() {
         return "Order{" + "customer=" + customer + ", date=" + date + ", orderItems=" + orderItems + '}';
     }
+
+@Override
+public boolean isValid() {
+	// TODO Auto-generated method stub
+	return true;
+}
     
     
 }

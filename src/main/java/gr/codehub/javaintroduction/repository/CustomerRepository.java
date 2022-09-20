@@ -11,11 +11,8 @@ import java.util.List;
  *
  * @author iracl
  */
-public interface CustomerRepository {
+public interface CustomerRepository extends Repository<Customer>{
 
-    boolean addCustomer (Customer customer);
-     List<Customer> readCustomer();
-     Customer readCustomer(long customerId);
      boolean updateCustomer(long customerId, String newEmail);
-     boolean deleteCustomer(long customerId);
+
 }
