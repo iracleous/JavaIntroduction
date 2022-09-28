@@ -34,10 +34,11 @@ public class MarketServiceImpl implements MarketService{
     private final ItemRepository itemRepository;
     private final Repository<Order> orderRepository;
     
-    public MarketServiceImpl(){
-        customerRepository = new CustomerRepositoryImpl();
-        itemRepository = new ItemRepositoryImpl();
-        orderRepository = new OrderRepositoryImpl();
+    public MarketServiceImpl(CustomerRepository  customerRepository,
+    		ItemRepository itemRepository, Repository<Order> orderRepository){
+        this.customerRepository = customerRepository;
+        this.itemRepository = itemRepository;
+        this.orderRepository = orderRepository;
     }
     
     @Override
@@ -45,15 +46,11 @@ public class MarketServiceImpl implements MarketService{
        for (String currentCustomer: GeneralUtility.customers){
              String words[] = currentCustomer.split(",");
              //long id, String firstName, String surname, String tel, String email
-             try{
+             
                 Customer customer = new Customer(
                         Long.parseLong(words[0]), words[1],words[2], words[3], words[4]);
                 if (GeneralUtility.isValidcustomer(customer))
                       customerRepository.add(customer );
-             }
-             catch(CustomerException customerException){
-                 System.out.println("The customer has not been added");
-             }
           }
     }
 

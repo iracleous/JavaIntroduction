@@ -19,8 +19,8 @@ public class ItemRepositoryImpl extends RepositoryImpl<Item> implements ItemRepo
  
     
 
-    public ItemRepositoryImpl() {
-        super();
+    public ItemRepositoryImpl(List<Item> itemList) {
+        super(itemList);
     }
     //CR2UD
 

@@ -4,6 +4,8 @@
  */
 package gr.codehub.javaintroduction.repository.impl;
 
+import java.util.List;
+
 import gr.codehub.javaintroduction.domain.Order;
 
 /**
@@ -14,8 +16,8 @@ public class OrderRepositoryImpl extends RepositoryImpl<Order>{
 
    
 
-    public OrderRepositoryImpl() {
-        super();
+    public OrderRepositoryImpl(List<Order> listOrder) {
+        super(listOrder);
     }
   
     

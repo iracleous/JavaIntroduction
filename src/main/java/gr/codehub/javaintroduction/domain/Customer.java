@@ -28,9 +28,9 @@ public class Customer implements Entity{
      * @param email
      * @throws CustomerException
      */
-    public Customer(long id, String firstName, String surname, String tel, String email) throws CustomerException{
-        if (!GeneralUtility.isValidEmail(email))
-             throw new CustomerException("Invalid email");
+    public Customer(long id, String firstName, String surname, String tel, 
+    		String email)  {
+        
         this.id = id;
         this.firstName = firstName;
         this.surname = surname;

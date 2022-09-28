@@ -12,8 +12,8 @@ public abstract class RepositoryImpl<T extends Entity> implements Repository<T>{
 	
 	 private final List<T> list ;
 
-	    public RepositoryImpl() {
-	         list = new ArrayList<>();
+	    public RepositoryImpl(List<T> list) {
+	         this.list = list;
 	    }
 	   
 	    // add  remove get  update   CR2UD   create read update delete

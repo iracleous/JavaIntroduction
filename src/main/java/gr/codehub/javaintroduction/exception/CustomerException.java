@@ -10,9 +10,12 @@ package gr.codehub.javaintroduction.exception;
  */
 public class CustomerException extends Exception{
 
-    public CustomerException(String message) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public CustomerException(String message) {
         super(message);
     }
-    
-    
 }

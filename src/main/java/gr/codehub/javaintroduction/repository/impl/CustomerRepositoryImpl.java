@@ -17,8 +17,8 @@ import java.util.List;
 public class CustomerRepositoryImpl extends RepositoryImpl<Customer> 
 	implements CustomerRepository{
  
-    public CustomerRepositoryImpl() {
-         super();
+    public CustomerRepositoryImpl(List<Customer> customerList) {
+         super(customerList);
     }
    
     // add  remove get  update   CR2UD   create read update delete
