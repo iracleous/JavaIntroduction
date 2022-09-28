@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService{
             entityManager.getTransaction().commit();
 		}
 		catch(Exception e) {
-			throw new CustomerException("The customer has not been saved");
+			throw new CustomerException("The customer has not been saved. Reason "+ e.getMessage());
 		}
 	}
 

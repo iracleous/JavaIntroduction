@@ -22,5 +22,8 @@ public class JpaTest {
 		customerService.addCustomer(customer);
 		
 		System.out.println("Customer id "+ customer.getId());
+		
+		
+		JpaUtil.shutdown();
 	}
 }
