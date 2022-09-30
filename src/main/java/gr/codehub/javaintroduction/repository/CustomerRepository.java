@@ -4,15 +4,15 @@
  */
 package gr.codehub.javaintroduction.repository;
 
-import gr.codehub.javaintroduction.domain.Customer;
+import gr.codehub.javaintroduction.model.Customer;
 import java.util.List;
 
 /**
  *
  * @author iracl
  */
-public interface CustomerRepository extends Repository<Customer>{
+public interface CustomerRepository extends Repository<Customer, Long>{
 
-     boolean updateCustomer(long customerId, String newEmail);
+   //  boolean updateCustomer(long customerId, String newEmail);
 
 }

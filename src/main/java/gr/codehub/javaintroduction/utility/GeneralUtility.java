@@ -4,7 +4,7 @@
  */
 package gr.codehub.javaintroduction.utility;
 
-import gr.codehub.javaintroduction.domain.Customer;
+import gr.codehub.javaintroduction.model.Customer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

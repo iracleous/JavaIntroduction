@@ -1,12 +1,12 @@
 package gr.codehub.javaintroduction.repository;
 
-import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 
-public interface Repository<T> {
-	boolean add (T t);
-    List<T> read();
-	T read(long tId);
-	boolean delete(long tId);
+public interface Repository<T, K> {
+	Optional<T> add (T t);
+    List<T> read(int pageNumber, int pageSize);
+    Optional<T> read(K tId);
+	boolean delete(K tId);
 }

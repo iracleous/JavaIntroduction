@@ -1,10 +1,12 @@
 package gr.codehub.javaintroduction.model;
 
-import jakarta.persistence.Column;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Customer {
@@ -17,6 +19,8 @@ public class Customer {
 	private String tel;
 	private String email;
 	
+	@OneToMany(mappedBy="customer")
+	private List<Orders> orders;
 	
 	public long getId() {
 		return id;
